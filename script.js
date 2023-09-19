@@ -37,4 +37,4 @@ if (resultado !== null) {
 }
 document.body.appendChild(resultadoHTML);
 
-not
+
