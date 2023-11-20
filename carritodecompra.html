@@ -1,56 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<style>
-  /* Estilo para la ventana modal */
-  .modal {
-    display: none; /* Por defecto, la ventana modal está oculta */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
-  }
-
-  .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-  }
-
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Tienda virtual</title>
+  <link href="style.css" rel="stylesheet">
 </head>
-<body>
 
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModal()">&times;</span>
-      <h2>Carrito de Compras</h2>
-      <ul id="carritoModalLista"></ul>
+<body>
+  <div class="encabezado">
+    <a href="carritodecompra.html" id="carritoIcono" onmouseover="mostrarModal()" onmouseout="cerrarModal()">
+      <img src="shoppingcart1_114878.png" style="margin-top: 15px; width: 40px;">
+    </a>
+    <!-- Ventana modal -->
+    <div id="modal" class="modal">
+      <div id="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h3>Carrito de Compras</h3>
+        <ul id="carritoModalLista"></ul>
+        <div id="total"></div>
+        <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+      </div>
     </div>
   </div>
 
+  <div class="contenedor"></div>
+
   <script>
+  
+  const modal = document.getElementById("modal");
     function mostrarModal() {
       const carritoModalLista = document.getElementById("carritoModalLista");
       carritoModalLista.innerHTML = ""; // Limpiar la lista modal
@@ -81,17 +59,81 @@
       modal.style.display = "none";
     }
 
-    // Agrega un evento "mouseover" para mostrar la ventana modal al pasar el mouse sobre el icono del carrito
-    const carritoIcono = document.getElementById("carritoIcono");
-    carritoIcono.addEventListener("mouseover", mostrarModal);
+    function vaciarCarrito() {
+      // Vaciar el carrito en localStorage
+      localStorage.removeItem("carrito");
 
-    // Cierra la ventana modal si el usuario hace clic fuera de ella
-    window.addEventListener("click", (event) => {
-      const modal = document.getElementById("modal");
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
+      cerrarModal();
+
+     
+    }
+
+      
+
+
+
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const contenedor = document.querySelector(".contenedor");
+      const products = await obtenerProductos();
+
+      let productos = "";
+      products.test.forEach((product) => {
+        localStorage.setItem(`product_${product.id}`, JSON.stringify(product));
+        productos += `
+          <div class="card" style="width: 18rem;">
+            <img src="${product.image}" style="width: 100px" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-text">${product.title}</h5>
+              <p class="card-text">${product.price}</p>
+              <a href="detalleproducto.html?id=${product.id}" class="btn btn-primary">Ver Detalle</a>
+            </div>
+          </div>
+        `;
+      });
+
+      contenedor.innerHTML = productos; // Agrega el contenido al elemento con la clase "contenedor"
     });
+
+    // Función para obtener datos de la API ficticia
+    async function obtenerProductos() {
+      try {
+        const response = await fetch('https://fakestoreapi.sabrinarodrig16.repl.co/products');
+        if (!response.ok) {
+          throw new Error('Error en la solicitud');
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error:', error);
+        return [];
+      }
+    }
+
+    // Función para agregar productos al carrito
+    function agregarAlCarrito(productId) {
+      const product = JSON.parse(localStorage.getItem(`product_${productId}`));
+
+      // Obtén el carrito desde localStorage
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+      // Verifica si el producto ya está en el carrito
+      const existingProduct = carrito.find((item) => item.id === productId);
+
+      if (existingProduct) {
+        // Si el producto ya está en el carrito, aumenta la cantidad
+        existingProduct.quantity += 1;
+      } else {
+        // Si el producto no está en el carrito, agrégalo con cantidad 1
+        carrito.push({ id: productId, title: product.title, quantity: 1 });
+      }
+
+      // Guarda el carrito actualizado en localStorage
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+
+      // Muestra la ventana modal al agregar un producto
+      mostrarModal();
+    }
   </script>
 </body>
 </html>
