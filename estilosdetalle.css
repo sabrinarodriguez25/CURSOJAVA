@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .encabezado {
+    background: grey;
+    margin-top: -20px;
+    height: 80px;
+    text-align: right;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 20px; /* Añade un poco de relleno a la izquierda */
+    padding-right: 20px; /* Añade un poco de relleno a la derecha */
+  }
+  
+  .detalles-producto {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.product-image {
+  width: 400px;
+}
+
+  
+  .detalles-texto {
+    max-width: 40%; /* Cambiado de 60% a 40% para dejar más espacio a la imagen */
+  }
+  
+  #agregarAlCarrito {
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
