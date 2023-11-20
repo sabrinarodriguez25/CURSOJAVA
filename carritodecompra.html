@@ -4,27 +4,50 @@
 </head>
 <body>
 
-  <h1>Carrito de Compras</h1>
-  <ul id="carritoLista"></ul>
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Carrito de Compras</h2>
+      <ul id="carritoModalLista"></ul>
+    </div>
+  </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+   function mostrarModal() {
+      const carritoModalLista = document.getElementById("carritoModalLista");
+      carritoModalLista.innerHTML = ""; // Limpiar la lista modal
+
       // Obtén el carrito desde localStorage
       const carrito = JSON.parse(localStorage.getItem("carrito"));
 
-      // Obtén el elemento de la lista del carrito
-      const carritoLista = document.getElementById("carritoLista");
-
       if (carrito && carrito.length > 0) {
-        // Recorre los productos en el carrito y muestra cada uno en la lista
+        // Recorre los productos en el carrito y muestra cada uno en la lista modal
         carrito.forEach((product) => {
           const listItem = document.createElement("li");
-          listItem.textContent = product.title;
-          carritoLista.appendChild(listItem);
+          listItem.textContent = `${product.title} - Cantidad: ${product.quantity}`;
+          carritoModalLista.appendChild(listItem);
         });
       } else {
-        // Si el carrito está vacío, muestra un mensaje
-        carritoLista.innerHTML = "<p>El carrito está vacío.</p>";
+        // Si el carrito está vacío, muestra un mensaje en la lista modal
+        const emptyMessage = document.createElement("p");
+        emptyMessage.textContent = "El carrito está vacío.";
+        carritoModalLista.appendChild(emptyMessage);
+      }
+
+      // Muestra la ventana modal
+      modal.style.display = "block";
+    }
+
+    // Agrega un evento "click" para cerrar la ventana modal al hacer clic en la "x"
+    const closeModalButton = document.getElementsByClassName("close")[0];
+    closeModalButton.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Cierra la ventana modal si el usuario hace clic fuera de ella
+    window.addEventListener("click", (event) => {
+      if (event.target == modal) {
+        modal.style.display = "none";
       }
     });
   </script>
