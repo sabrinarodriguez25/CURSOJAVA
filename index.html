@@ -4,49 +4,146 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Tienda virtual</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="" rel="stylesheet" type="text/css" />
+
   <style>
-    /*En este ejemplo, hemos utilizado CSS flexbox para que los cards se muestren horizontalmente en la clase .contenedor. 
-      La propiedad flex-wrap: wrap permite que los cards se envuelvan a la siguiente línea cuando no caben en la pantalla, 
-	  y justify-content: space-between distribuye el espacio horizontalmente entre los elementos.
-      Además, hemos establecido un ancho fijo para cada card utilizando flex-basis para que ocupen aproximadamente un tercio 
-	  del ancho del contenedor, y hemos añadido un margen para separarlos. 
-	  Esto crea una disposición horizontal ordenada de los cards. Ajusta los valores según tus necesidades de diseño.
-    */
-    /* Estilo para la clase "contenedor" */
-    .contenedor {
-      display: flex; /* Muestra los elementos hijos en línea (horizontalmente) */
-      flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea cuando no caben en la pantalla */
-      justify-content: space-between; /* Distribuye el espacio horizontalmente entre los elementos */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Estilo para los cards */
+    .contenedor {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
     .card {
-      margin: 5px; /* Agrega un margen entre los cards */
-	  border: 1px solid #c1c2ca;
-	  padding: 16px;
-	  border-radius: 20px;
+      margin: 5px;
+      border: 1px solid #c1c2ca;
+      padding: 16px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 300px;
     }
-    .encabezado{
-	    background:#279bd6;
-	    margin-top: -21px;
-	    height: 60px;
+
+    .card img {
+      width: 100%;
+      height: auto;
     }
-	
+
+    .encabezado {
+      background:beige;
+      margin-top: -21px;
+      height: 100px;
+      text-align: right;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Distribuye el espacio entre los elementos */
+      padding: 0 20px;
+    }
+
+    .titulo{
+      text-align: center;
+    }
+
+    .menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .menu li {
+      margin-right: 20px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+    .logo {
+      margin-top: 30px;
+    }
+
+    .logo img {
+      width: 80px; /* Ajusta el tamaño del logo según tus necesidades */
+      height: auto;
+  
+
+    }
+    .swiper-container {
+      width: 100%;
+      height: 300px; /* Ajusta la altura según tus necesidades */
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: linear-gradient(to right, #000000, #FF69B4);
+      /* Center slide text vertically */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .swiper-slide img {
+      width: 400px; 
+      height: auto;
+    }
+
   </style>
 </head>
 
 <body>
- <div class="encabezado">
-	 <a href="carritodecompra.html"  id="carritoIcono">
-	 <span><img src="shoppingcart1_114878.png" style="margin-top: 15px; width: 40px;>""</span></span>
-	 </a>
- </div>
-         
+  <div class="encabezado">
+    <div class="logo">
+      <img src="63593532220.png" alt="Logo de la tienda">
+    </div>
+    <ul class="menu">
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Quiénes Somos</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="#">Eventos</a></li>
+    </ul>
+    <a href="carritodecompra.html" id="carritoIcono">
+      <span><img src="shoppingcart1_114878.png" style="margin-top: 15px; width: 40px;"></span>
+    </a>
+  </div>
+
+   <!-- Agrega la estructura del carrusel -->
+   <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="bebida.png" alt="Slide 1">
+        <div class="slide-text">¡Disfruta de las mejores bebidas de tus idols!</div>
+      </div>
+      <div class="swiper-slide">
+        <img src="" alt="Slide 2">
+        <div class="slide-text">Texto del Slide 2</div>
+      </div>
+      <!-- Agrega más slides según sea necesario -->
+    </div>
+    <!-- Agrega la paginación del carrusel si lo deseas -->
+    <div class="swiper-pagination"></div>
+    <!-- Agrega la navegación del carrusel si lo deseas -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  
+  
+  <div class="titulo">
+    
+    <h2>Delicias recomendadas</h2>
+  </div>
+
   <div class="contenedor"></div>
 
-
   <script>
+    
     // Función para obtener datos de la API ficticia
     async function obtenerProductos() {
       try {
@@ -68,10 +165,10 @@
 
       let productos = "";
       products.test.forEach((product) => {
-		localStorage.setItem(`product_${product.id}`, JSON.stringify(product));
+        localStorage.setItem(`product_${product.id}`, JSON.stringify(product));
         productos += `
-          <div class="card" style="width: 18rem;">
-            <img src="${product.image}" style="width: 100px" class="card-img-top" alt="...">
+          <div class="card">
+            <img src="${product.image}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-text">${product.title}</h5>
               <p class="card-text">${product.price}</p>
@@ -83,6 +180,28 @@
 
       contenedor.innerHTML = productos; // Agrega el contenido al elemento con la clase "contenedor"
     });
+    
   </script>
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Código para manipular el DOM después de que se haya cargado completamente
+    var mySwiper = new Swiper('.swiper-container', {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  });
+</script>
 </body>
 </html>
+
