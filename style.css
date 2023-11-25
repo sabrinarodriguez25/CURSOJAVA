@@ -1,140 +1,193 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Tienda virtual</title>
-  <link href="style.css" rel="stylesheet">
-</head>
+body {
+  font-family: 'Chicle', serif;
+  margin: 0;
+  padding: 0;
+  background: pink;
+}
 
-<body>
-  <div class="encabezado">
-    <a href="carritodecompra.html" id="carritoIcono" onmouseover="mostrarModal()" onmouseout="cerrarModal()">
-      <img src="shoppingcart1_114878.png" style="margin-top: 15px; width: 40px;">
-    </a>
-    <!-- Ventana modal -->
-    <div id="modal" class="modal">
-      <div id="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <h3>Carrito de Compras</h3>
-        <ul id="carritoModalLista"></ul>
-        <div id="total"></div>
-        <button onclick="vaciarCarrito()">Vaciar Carrito</button>
-      </div>
-    </div>
-  </div>
+h1{
+  margin-left: 20px;
+}
 
-  <div class="contenedor"></div>
 
-  <script>
+.contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
   
-  const modal = document.getElementById("modal");
-    function mostrarModal() {
-      const carritoModalLista = document.getElementById("carritoModalLista");
-      carritoModalLista.innerHTML = ""; // Limpiar la lista modal
+  /* Estilo para los cards */
+  .card {
+    margin: 5px;
+    border: 1px solid #c1c2ca;
+    padding: 16px;
+    border-radius: 20px;
+  }
+  
+  
+  .encabezado {
+    background: #f1948a;
+    margin-top: -21px;
+    height: 100px;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+  
+  /* Estilo para la ventana modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 60px;
+    width: 300px;
+    max-height: 400px;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  #modal-content {
+    text-align: left;
+  }
+  
+  .close {
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .product-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .product-info img {
+    width: 50px;
+    margin-right: 10px;
+  }
+  
+  #total {
+    margin-top: 10px;
+    font-weight: bold;
+    margin-left: 20px;
+  }
+  
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
 
-      // Obtén el carrito desde localStorage
-      const carrito = JSON.parse(localStorage.getItem("carrito"));
+.menu li {
+  margin-right: 20px;
+}
 
-      if (carrito && carrito.length > 0) {
-        // Recorre los productos en el carrito y muestra cada uno en la lista modal
-        carrito.forEach((product) => {
-          const listItem = document.createElement("li");
-          listItem.textContent = `${product.title} - Cantidad: ${product.quantity}`;
-          carritoModalLista.appendChild(listItem);
-        });
-      } else {
-        // Si el carrito está vacío, muestra un mensaje en la lista modal
-        const emptyMessage = document.createElement("p");
-        emptyMessage.textContent = "El carrito está vacío.";
-        carritoModalLista.appendChild(emptyMessage);
-      }
+.menu a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: 'Chicle', serif;
+}
 
-      // Muestra la ventana modal
-      modal.style.display = "block";
-    }
+.logo {
+  margin-top: 10px;
+}
 
-    function cerrarModal() {
-      const modal = document.getElementById("modal");
-      modal.style.display = "none";
-    }
+.logo img {
+  width: 200px;
+  /* Ajusta el tamaño del logo según tus necesidades */
+  height: auto;
+}
 
-    function vaciarCarrito() {
-      // Vaciar el carrito en localStorage
-      localStorage.removeItem("carrito");
-
-      cerrarModal();
-
-     
-    }
-
-      
-
+#carritoCantidad {
+  display: inline-block;
+  background-color: purple;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
 
 
+.card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  background:  linear-gradient(to bottom, #000000, #FF69B4);;
+}
 
-    document.addEventListener("DOMContentLoaded", async () => {
-      const contenedor = document.querySelector(".contenedor");
-      const products = await obtenerProductos();
+.card img {
+  width: 50px;
+  margin-right: 10px;
+}
 
-      let productos = "";
-      products.test.forEach((product) => {
-        localStorage.setItem(`product_${product.id}`, JSON.stringify(product));
-        productos += `
-          <div class="card" style="width: 18rem;">
-            <img src="${product.image}" style="width: 100px" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-text">${product.title}</h5>
-              <p class="card-text">${product.price}</p>
-              <a href="detalleproducto.html?id=${product.id}" class="btn btn-primary">Ver Detalle</a>
-            </div>
-          </div>
-        `;
-      });
+.card .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+}
 
-      contenedor.innerHTML = productos; // Agrega el contenido al elemento con la clase "contenedor"
-    });
+.card .price {
+  margin-right: 10px;
+}
 
-    // Función para obtener datos de la API ficticia
-    async function obtenerProductos() {
-      try {
-        const response = await fetch('https://fakestoreapi.sabrinarodrig16.repl.co/products');
-        if (!response.ok) {
-          throw new Error('Error en la solicitud');
-        }
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error('Error:', error);
-        return [];
-      }
-    }
+.card .buttons {
+  display: flex;
+}
 
-    // Función para agregar productos al carrito
-    function agregarAlCarrito(productId) {
-      const product = JSON.parse(localStorage.getItem(`product_${productId}`));
+.card .buttons button {
+  margin-right: 5px;
+}
 
-      // Obtén el carrito desde localStorage
-      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+#vaciarCarrito{
+  background: linear-gradient(to right, #ff69b4, #ec407a);
 
-      // Verifica si el producto ya está en el carrito
-      const existingProduct = carrito.find((item) => item.id === productId);
+  border: none;
+  border-radius: 20px;
 
-      if (existingProduct) {
-        // Si el producto ya está en el carrito, aumenta la cantidad
-        existingProduct.quantity += 1;
-      } else {
-        // Si el producto no está en el carrito, agrégalo con cantidad 1
-        carrito.push({ id: productId, title: product.title, quantity: 1 });
-      }
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Chicle', serif;
+  margin-left: 20px;
 
-      // Guarda el carrito actualizado en localStorage
-      localStorage.setItem("carrito", JSON.stringify(carrito));
+}
 
-      // Muestra la ventana modal al agregar un producto
-      mostrarModal();
-    }
-  </script>
-</body>
-</html>
+
+#vaciarCarrito:hover{
+  background: linear-gradient(to right, #ec407a, #d81b60);
+}
+
+
+.deleteButton {
+  background-color: #ff6347;
+  color: #fff;
+  border: 1px solid #ff6347;
+}
+
+.deleteButton:hover {
+  background-color: #d9534f;
+  border: 1px solid #d9534f;
+}
+
+
+.incrementButton{
+  background-color: #000000;
+}
 
