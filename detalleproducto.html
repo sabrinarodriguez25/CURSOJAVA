@@ -1,107 +1,117 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Detalles del Producto</title>
+    <link href="estilosdetalle.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chicle&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Detalles del Producto</title>
-  <link href="estilosdetalle.css" rel="stylesheet" type="text/css" />
- 
-</head>
-
-<body>
-  <div class="encabezado">
-    <div class="logo">
-      <img src="logoo.png" alt="Logo de la tienda" />
+  <body>
+    <div class="encabezado">
+      <div class="logo">
+        <img src="logoo.png" alt="Logo de la tienda" />
+      </div>
+      <ul class="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="quienes_somos.html">Quiénes Somos</a></li>
+        <li><a href="productos.html">Tienda</a></li>
+        <li><a href="eventos.htm">Eventos</a></li>
+      </ul>
+      <a href="carritodecompra.html" id="carritoIcono">
+        <span
+          ><img
+            src="shoppingcart1_114878.png"
+            style="margin-top: 15px; width: 40px"
+        /></span>
+      </a>
     </div>
-    <ul class="menu">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="#">Quiénes Somos</a></li>
-      <li><a href="productos.html">Productos</a></li>
-      <li><a href="#">Eventos</a></li>
-    </ul>
-    <a href="carritodecompra.html" id="carritoIcono">
-      <span
-        ><img
-          src="shoppingcart1_114878.png"
-          style="margin-top: 15px; width: 40px"
-      /></span>
-    </a>
+
+    <header>
+      <h1>Detalles del Producto</h1>
+    </header>
+
+    <div class="detalles-producto">
+      <img src="" alt="Descripción de la imagen" />
+      <div class="detalles-texto">
+        <!-- Aquí mostrarás los detalles del producto utilizando JavaScript -->
+      </div>
+
+    </div>
+
+   
 
     
-  
-  </div>
 
-  <header>
-    <h1>Detalles del Producto</h1>
-  </header>
+    <button id="agregarAlCarrito">Agregar al Carrito</button>
 
-  <div class="detalles-producto">
-    <div class="detalles-texto">
-      <!-- Aquí mostrarás los detalles del producto utilizando JavaScript -->
-    </div>
-    <img src="" alt="" style="width: 500px">
-  </div>
+    <script>
+      // Obtén el ID del producto de la URL (podemos usar la url porque no estamos haciendo http en internet sino en el equipo)
+      const urlParams = new URL(window.location.href);
+      const productId = urlParams.searchParams.get("id");
+      // Función para obtener los detalles del product
+      // Intenta recuperar el producto desde localStorage
+      const productJSON = localStorage.getItem(`product_${productId}`);
 
-  <button id="agregarAlCarrito">Agregar al Carrito</button>
-
-  <script>
-    // Obtén el ID del producto de la URL (podemos usar la url porque no estamos haciendo http en internet sino en el equipo)
-    const urlParams = new URL(window.location.href);
-    const productId = urlParams.searchParams.get('id');
-    // Función para obtener los detalles del product
-    // Intenta recuperar el producto desde localStorage
-    const productJSON = localStorage.getItem(`product_${productId}`);
-
-    // Creamos el evento de escucha del click del botón agregar al carrito
-    document.addEventListener("DOMContentLoaded", () => {
-      const product = JSON.parse(productJSON);
-      // Agrega un evento al botón "Agregar al Carrito"
-      const agregarAlCarritoButton = document.getElementById("agregarAlCarrito");
-      agregarAlCarritoButton.addEventListener("click", () => {
-        // Agrega el producto al carrito en localStorage
-        agregarAlCarrito(product);
+      // Creamos el evento de escucha del click del botón agregar al carrito
+      document.addEventListener("DOMContentLoaded", () => {
+        const product = JSON.parse(productJSON);
+        // Agrega un evento al botón "Agregar al Carrito"
+        const agregarAlCarritoButton =
+          document.getElementById("agregarAlCarrito");
+        agregarAlCarritoButton.addEventListener("click", () => {
+          // Agrega el producto al carrito en localStorage
+          agregarAlCarrito(product);
+        });
       });
-    });
-    // creamos la función de agregar al carrito de compra
-    function agregarAlCarrito(product) {
-      // Obtén el carrito actual desde localStorage o crea un array vacío
-      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      // creamos la función de agregar al carrito de compra
+      function agregarAlCarrito(product) {
+        // Obtén el carrito actual desde localStorage o crea un array vacío
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-      // Agrega el producto al carrito
-      carrito.push(product);
+        // Agrega el producto al carrito
+        carrito.push(product);
 
-      // Guarda el carrito actualizado en localStorage
-      localStorage.setItem("carrito", JSON.stringify(carrito));
+        // Guarda el carrito actualizado en localStorage
+        localStorage.setItem("carrito", JSON.stringify(carrito));
 
-      // Puedes mostrar una confirmación de que el producto se ha agregado al carrito
-      alert("Producto agregado al carrito");
-    }
+        // Puedes mostrar una confirmación de que el producto se ha agregado al carrito
+        alert("Producto agregado al carrito");
+      }
 
-    // mostramos el detalle del producto:
-    if (productJSON) {
-      // Si el producto está en localStorage, convierte el JSON a un objeto JavaScript
-      const product = JSON.parse(productJSON);
+      // mostramos el detalle del producto:
+      if (productJSON) {
+        // Si el producto está en localStorage, convierte el JSON a un objeto JavaScript
+        const product = JSON.parse(productJSON);
 
-      // Muestra los detalles del producto en la página
-      const detallesContainer = document.querySelector('.detalles-texto');
-      detallesContainer.innerHTML = `
+        // Muestra los detalles del producto en la página
+        const detallesContainer = document.querySelector(".detalles-texto");
+        detallesContainer.innerHTML = `
         <h2>${product.title}</h2>
         <p><strong>Precio:</strong> $${product.price}</p>
         <p><strong>Descripción:</strong> ${product.description}</p>
       `;
-      
-      // Actualiza la imagen
-      const imgElement = document.querySelector('.detalles-producto img');
-      imgElement.src = product.image;
-      imgElement.alt = product.title;
-    } else {
-      // Si el producto no está en localStorage, muestra un mensaje de que no se ha encontrado.
-      console.log('Producto no encontrado en el almacenamiento local.');
-    }
-  </script>
-</body>
 
+        // Actualiza la imagen
+        const imgElement = document.querySelector(".detalles-producto img");
+        imgElement.src = product.image;
+        imgElement.alt = product.title;
+
+        
+      } else {
+        // Si el producto no está en localStorage, muestra un mensaje de que no se ha encontrado.
+        console.log("Producto no encontrado en el almacenamiento local.");
+      }
+     
+    </script>
+  </body>
 </html>
+
 
 
