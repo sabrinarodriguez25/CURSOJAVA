@@ -1,36 +1,233 @@
 body {
     font-family: Arial, sans-serif;
-  }
-  
-  .encabezado {
-    background: grey;
-    margin-top: -20px;
-    height: 80px;
-    text-align: right;
+    margin: 0;
+    padding: 0;
+    background: beige;
+}
+
+.contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    margin: 5px;
+    border: 1px solid #c1c2ca;
+    padding: 16px;
+    border-radius: 20px;
     width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 20px; /* Añade un poco de relleno a la izquierda */
-    padding-right: 20px; /* Añade un poco de relleno a la derecha */
-  }
-  
-  .detalles-producto {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+    max-width: 300px;
 }
 
-.product-image {
-  width: 400px;
+.card img {
+    width: 100%;
+    height: auto;
 }
 
+.encabezado {
+    background: #f1948a;
+    margin-top: -21px;
+    height: 100px;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.titulo {
+    text-align: center;
+    font-family: 'Chicle', serif;
+    font-size: 30px;
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu li {
+    margin-right: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Chicle', serif;
+}
+
+.logo {
+    margin-top: 10px;
+}
+
+.logo img {
+    width: 200px;
+    
+    height: auto;
+}
+
+
+
+
+.btn-ver-detalle {
+    background: linear-gradient(to right, #ff69b4, #ec407a);
+    border: none;
+    border-radius: 20px;
+    font-size: smaller;
+
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-ver-detalle:hover {
+    background: linear-gradient(to right, #ec407a, #d81b60);
+}
+
+.card {
+    background-color: beige;
+    border-radius: 10px;
   
-  .detalles-texto {
-    max-width: 40%; /* Cambiado de 60% a 40% para dejar más espacio a la imagen */
-  }
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   
-  #agregarAlCarrito {
+    overflow: hidden;
+
+    margin-bottom: 80px;
+  
+    width: 200px;
+    
+    height: 380px;
+    margin-right: 50px;
+}
+
+.card img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.card-body {
+    padding: 20px;
+   
+}
+
+.ver-todos-container {
+    text-align: center;
     margin-top: 20px;
-    cursor: pointer;
+}
+
+.btn-ver-todos {
+    background: black;
+    color: pink;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.btn-ver-todos:hover {
+    background: black;
+}
+
+
+
+footer {
+    background-color: #f1948a;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    color: white;
+    font-size: 14px;
+}
+
+.swiper {
+    width: 100%;
+    height: 80%;
+    background: linear-gradient(to bottom, #000000, #FF69B4);
   }
+
+
+/*imagenes del   primer contenedor*/
+  .swiper-slide img {
+    display: block;
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+  }
+
+
+
+.c1 img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.c2 img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.c3 img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.c4 img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+  
+.swiper-container2 {
+    width: 600px;
+    height: 300px;
+    margin-left: 250px;
+}
+
+.swiper-slide{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size:2rem;
+  font-family: monospace;
+  letter-spacing: 0.08rem;
+  
+}
+
+
+
+
+.texto{
+    position: absolute;
+    bottom: 200px; 
+    right:100px; 
+    color: black; 
+    font-family: 'Chicle', serif;
+    font-size: 40px;
+  }
+
+.texto1{
+    position: absolute;
+    bottom: 100px; 
+    right:100px; 
+    color: black; 
+    font-family: 'Chicle', serif;
+    font-size: 40px;
+  }
+  
   
