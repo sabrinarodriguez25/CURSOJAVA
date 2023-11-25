@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width" />
     <title>Tienda virtual</title>
     <link href="index_style.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chicle&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
-      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chicle&display=swap" rel="stylesheet">
-
   </head>
 
   <body>
@@ -22,9 +24,9 @@
       </div>
       <ul class="menu">
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="#">Quiénes Somos</a></li>
-        <li><a href="productos.html">Productos</a></li>
-        <li><a href="#">Eventos</a></li>
+        <li><a href="quienes_somos.html">Quiénes Somos</a></li>
+        <li><a href="productos.html">Tienda</a></li>
+        <li><a href="eventos.htm">Eventos</a></li>
       </ul>
       <a href="carritodecompra.html" id="carritoIcono">
         <span
@@ -32,28 +34,32 @@
             src="shoppingcart1_114878.png"
             style="margin-top: 15px; width: 40px"
         /></span>
+        <span id="carritoCantidad"></span>
       </a>
-
-      
     </div>
 
-    <div class="swiper-container">
+    <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img src="bebida.png" alt="Slide 1" />
-          <div class="slide-text">
-            ¡Disfruta de las mejores bebidas de tus idols!
-          </div>
+          <img src="bebida.png" />
+          <p class="texto">¡Disfruta de las mejores bebidas de tus idols!</p>
         </div>
         <div class="swiper-slide">
-          <img src="bebida.png" alt="Slide 2"  width="300"/>
-          <div class="slide-text">Texto del Slide 2</div>
+          <img src="bebide.png" alt="" style="width: 30%; height: 30%" />
+          <p class="texto1">¡Descubre las mejores bebidas personalizadas!</p>
         </div>
-        <!-- Agrega más slides según sea necesario -->
+        <div class="swiper-slide">
+          <img
+            src="bebida3.png"
+            alt=""
+            style="width: 30%; height: 30%; right: 40px"
+          />
+          <p class="texto1">¡Conoce nuestros cafés animados!</p>
+        </div>
       </div>
-
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
     </div>
 
     <div class="titulo">
@@ -68,27 +74,33 @@
       >
     </div>
 
-    <div class="custom-swiper-container">
-      <!-- Cambia el nombre de la clase para el wrapper de los slides -->
-      <div class="custom-swiper-wrapper">
-        <div class="custom-swiper-slide">
-          <img src="blink.jpeg" alt="Image 1" />
-        </div>
-        <div class="custom-swiper-slide">
-          <img src="blink.jpeg" alt="Image 2" />
-        </div>
-        <div class="custom-swiper-slide">
-          <img src="blink.jpeg" alt="Image 3" />
-        </div>
-      </div>
-      <!-- Cambia el nombre de la clase para la paginación y las flechas de navegación si lo deseas -->
-      <div class="custom-swiper-pagination"></div>
-      <button class="custom-swiper-button-next">Next</button>
-      <button class="custom-swiper-button-prev">Prev</button>
+    <div class="titulo">
+      <h1>Pasa tus mejores momentos con la música que te gusta</h1>
     </div>
 
-    
+ 
+
+    <div class="swiper-container2">
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide c1">
+          <img src="blink.jpeg" alt="" />
+        </div>
+        <div class="swiper-slide c2">
+          <img src="stay.jpeg" alt="" />
+        </div>
+        <div class="swiper-slide c3">
+          <img src="blink.jpeg" alt="" />
+        </div>
+        <div class="swiper-slide c4">
+          <img src="blink.jpeg" alt="" />
+        </div>
+      </div>
+    </div>
+
     <script>
+
+      
       // Función para obtener datos de la API ficticia
       async function obtenerProductos() {
         try {
@@ -132,61 +144,76 @@
       });
     </script>
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-      const customSwiper = new Swiper(".custom-swiper-container", {
-        effect: "coverflow",
-        grabCursor: true,
+      var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
         centeredSlides: true,
-        slidesPerView: "auto",
-        coverflowEffect: {
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
         },
         pagination: {
-          el: ".custom-swiper-pagination",
+          el: ".swiper-pagination",
+          clickable: true,
         },
-        navigation: {
-          nextEl: ".custom-swiper-button-next",
-          prevEl: ".custom-swiper-button-prev",
-        },
-      });
-    </script>
-
-    <script>
-      const swiper = new Swiper(".swiper-container", {
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         },
       });
     </script>
+    <script>
+      var mySwiper = new Swiper(".swiper-container2", {
+        // Optional parameters
+        loop: true,
+        slidesPerView: 2,
+        centeredSlides: true,
+        effect: "coverflow",
+        coverflow: {
+          rotate: 0,
+          stretch: 0,
+          depth: 300,
+          modifier: 1,
+          // slideShadows : true
+        },
 
-<footer>
-  <div class="footer-content">
-    <div class="redes-sociales">
-      <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-      <!-- Agrega más iconos según tus necesidades -->
-    </div>
-    
-    <div class="lista-contactos">
-      <h4>Contacto:</h4>
-      <ul>
-        <li><i class="fas fa-envelope"></i> kshopcoffe@gmail.com</li>
-        <li><i class="fas fa-phone"></i> 3044176868</li>
-        <!-- Agrega más información de contacto según tus necesidades -->
-      </ul>
-    </div>
-  </div>
-  <p>&copy; 2023 sabrina rodriguez</p>
-</footer>
+        // If we need pagination
+        // pagination: '.swiper-pagination',
+
+        // Navigation arrows
+        nextButton: ".swiper-button-next",
+        prevButton: ".swiper-button-prev",
+      });
+
+      const cantidad = carrito.reduce(
+        (acc, product) => acc + product.quantity,
+        0
+      );
+      carritoCantidad.textContent = cantidad;
+    </script>
+
+    <footer>
+      <div class="footer-content">
+        <div class="redes-sociales">
+          <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <!-- Agrega más iconos según tus necesidades -->
+        </div>
+
+        <div class="lista-contactos">
+          <h4>Contacto:</h4>
+          <ul>
+            <li><i class="fas fa-envelope"></i> kshopcoffe@gmail.com</li>
+            <li><i class="fas fa-phone"></i> 3044176868</li>
+            <!-- Agrega más información de contacto según tus necesidades -->
+          </ul>
+        </div>
+      </div>
+      <p>&copy; 2023 sabrina rodriguez</p>
+    </footer>
   </body>
-    
 </html>
+
 
