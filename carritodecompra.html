@@ -24,8 +24,8 @@
       <ul class="menu">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="#">Quiénes Somos</a></li>
-        <li><a href="productos.html">Productos</a></li>
-        <li><a href="#">Eventos</a></li>
+        <li><a href="productos.html">Tienda</a></li>
+        <li><a href="eventos.htm">Eventos</a></li>
       </ul>
       <a href="carritodecompra.html" id="carritoIcono">
         <span
@@ -40,33 +40,128 @@
     <h1>Carrito de Compras</h1>
     <ul id="carritoLista"></ul>
 
+    <div id="total">Total: $0</div>
+
+    <button id="vaciarCarrito">Vaciar Carrito</button>
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         // Obtén el carrito desde localStorage
-        const carrito = JSON.parse(localStorage.getItem("carrito"));
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
         // Obtén el elemento de la lista del carrito y el elemento para mostrar la cantidad
         const carritoLista = document.getElementById("carritoLista");
         const carritoCantidad = document.getElementById("carritoCantidad");
 
-        if (carrito && carrito.length > 0) {
-          // Recorre los productos en el carrito y muestra cada uno en la lista
+        // Función para calcular el total del carrito
+        function calcularTotal() {
+          let total = 0;
+
+          // Recorre los productos en el carrito y suma el precio por la cantidad
           carrito.forEach((product) => {
+            total += product.price * product.quantity;
+          });
+
+          return total;
+        }
+
+        // Actualiza el carrito en localStorage y muestra los productos en la lista
+        function updateCart() {
+          // Actualiza el total del carrito
+          const total = calcularTotal();
+          document.getElementById("total").textContent = "Total: $" + total;
+
+          // Actualiza la cantidad de productos en el carrito
+          const cantidad = carrito.reduce(
+            (acc, product) => acc + product.quantity,
+            0
+          );
+          carritoCantidad.textContent = cantidad;
+
+          // Vacía la lista del carrito antes de volver a mostrar los productos
+          carritoLista.innerHTML = "";
+
+          // Recorre los productos en el carrito y muestra cada uno en la lista
+          carrito.forEach((product, index) => {
             const listItem = document.createElement("li");
-            listItem.textContent = product.title;
+
+            // Crea una tarjeta para mostrar la imagen y características del producto
+            const card = document.createElement("div");
+            card.classList.add("card");
+
+            // Agrega la imagen del producto a la tarjeta
+            const image = document.createElement("img");
+            image.src = product.image;
+            image.alt = product.title;
+            card.appendChild(image);
+
+            // Agrega las características del producto a la tarjeta
+            const title = document.createElement("h2");
+            title.textContent = product.title;
+            card.appendChild(title);
+
+            const price = document.createElement("p");
+            price.textContent = "Precio: $" + product.price;
+            card.appendChild(price);
+
+            // Agrega los botones de incremento, decremento y eliminar para el producto
+            const quantityLabel = document.createElement("label");
+            quantityLabel.textContent = "Cantidad: ";
+
+            const decrementButton = document.createElement("button");
+            decrementButton.textContent = "-";
+            decrementButton.addEventListener("click", () => {
+              // Decrementa la cantidad del producto en el carrito
+              if (product.quantity > 1) {
+                product.quantity--;
+                updateCart();
+              }
+            });
+            quantityLabel.appendChild(decrementButton);
+
+            const quantitySpan = document.createElement("span");
+            quantitySpan.textContent = product.quantity;
+            quantityLabel.appendChild(quantitySpan);
+
+            const incrementButton = document.createElement("button");
+            incrementButton.textContent = "+";
+            incrementButton.addEventListener("click", () => {
+              // Incrementa la cantidad del producto en el carrito
+              product.quantity++;
+              updateCart();
+            });
+            quantityLabel.appendChild(incrementButton);
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Eliminar";
+            deleteButton.addEventListener("click", () => {
+              // Elimina el producto del carrito
+              carrito.splice(index, 1);
+              updateCart();
+            });
+            quantityLabel.appendChild(deleteButton);
+
+            card.appendChild(quantityLabel);
+            listItem.appendChild(card);
             carritoLista.appendChild(listItem);
           });
 
-          // Muestra la cantidad de elementos en el carrito
-          carritoCantidad.textContent = carrito.length;
-        } else {
-          // Si el carrito está vacío, muestra un mensaje y establece la cantidad en 0
-          carritoLista.innerHTML = "<p>El carrito está vacío.</p>";
-          carritoCantidad.textContent = "0";
+          // Guarda el carrito actualizado en localStorage
+          localStorage.setItem("carrito", JSON.stringify(carrito));
         }
+
+        // Vaciar el carrito
+        const vaciarCarritoButton = document.getElementById("vaciarCarrito");
+        vaciarCarritoButton.addEventListener("click", () => {
+          // Vacía el arreglo del carrito y actualiza la vista
+          carrito.length = 0;
+          updateCart();
+        });
+
+        // Muestra el carrito inicial al cargar la página
+        updateCart();
       });
     </script>
   </body>
 </html>
-
 
